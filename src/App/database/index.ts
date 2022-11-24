@@ -1,6 +1,8 @@
 import mongoose from 'mongoose';
 
-mongoose.connect('mongodb://localhost:27017/CandyCake')
+import endpointsConfig from '../../../endpoints.config';
+
+mongoose.connect(`${endpointsConfig.MONGO_URI}`)
     .then(() => {
         console.log('our db as connect')
     })
