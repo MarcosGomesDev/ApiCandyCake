@@ -5,8 +5,6 @@ import jwt from "jsonwebtoken";
 
 import User from "../../models/User";
 
-
-
 const loginUser = async (req: Request, res: Response) => {
     const { email, password } = req.body
 
@@ -25,7 +23,7 @@ const loginUser = async (req: Request, res: Response) => {
 
         const token = jwt.sign({
             id: user._id
-        }, `${process.env.SECRET}`, { expiresIn: '1d' })
+        }, `${endpoints.SECRET}`, { expiresIn: '1d' })
 
         const data = {
             _id: user._id,

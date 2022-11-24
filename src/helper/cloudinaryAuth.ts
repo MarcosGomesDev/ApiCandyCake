@@ -1,6 +1,5 @@
 import cloudinary from 'cloudinary';
-import * as dotenv from 'dotenv';
-dotenv.config()
+import endpointsConfig from '../../endpoints.config';
 
 const cloud = cloudinary.v2
 
