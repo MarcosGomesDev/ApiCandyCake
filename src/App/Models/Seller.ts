@@ -1,8 +1,26 @@
-import mongoose from 'mongoose'
+import mongoose, { Types } from 'mongoose'
 const { Schema } = mongoose
 import PointSchema from '../../utils/PointSchema';
 
-const Seller = new Schema({
+interface ISeller {
+    name: string,
+    lastname: string,
+    storename: string,
+    email: string,
+    password: string,
+    avatar: string,
+    avatarId: string,
+    seller: boolean,
+    admin: boolean,
+    products: Array<Types.ObjectId>,
+    location: any,
+    address: Array<string>,
+    socialMedias: Array<string>,
+    createdAt: string,
+    updatedAt: string,
+}
+
+const Seller = new Schema<ISeller>({
     name: {
         required: true,
         type: String
@@ -24,7 +42,9 @@ const Seller = new Schema({
         type: String
     },
     avatar: {
-        required: true,
+        type: String
+    },
+    avatarId: {
         type: String
     },
     seller: {
@@ -34,9 +54,6 @@ const Seller = new Schema({
     admin: {
         required: true,
         type: Boolean
-    },
-    avatarId: {
-        type: String
     },
     products: {
         type: [{
@@ -80,4 +97,4 @@ const Seller = new Schema({
     }
 });
 
-export default mongoose.model('Seller', Seller);
+export default mongoose.model<ISeller>('Seller', Seller);

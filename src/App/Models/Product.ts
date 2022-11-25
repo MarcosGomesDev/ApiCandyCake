@@ -1,7 +1,35 @@
-import mongoose from "mongoose";
+import mongoose, { Document, Types } from "mongoose";
 const {Schema} = mongoose;
 
-const Product = new Schema({
+interface DocumentResult<T> extends Document {
+    _doc: T;
+}
+
+interface IRating {
+    userName: string,
+    userId: string,
+    productRating: number,
+    productReview: string,
+}
+
+interface IProduct extends DocumentResult<IProduct> {
+    name: string,
+    description: string,
+    price: number,
+    category: Types.ObjectId,
+    subcategory: Types.ObjectId,
+    images: Array<string>,
+    publicImages: Array<string>,
+    seller: any,
+    rating: Array<IRating>,
+    ratingNumbers: Array<number>,
+    ratingSum: number,
+    ratingAverage: number,
+    createdAt: string,
+    updatedAt: string,
+}
+
+const Product = new Schema<IProduct>({
     name: {
         type: String,
         required: true
@@ -16,13 +44,13 @@ const Product = new Schema({
     },
     category: {
         required: true,
-        type: mongoose.Schema.Types.ObjectId,
+        type: Schema.Types.ObjectId,
         ref: 'Category'
     },
     subcategory: {
         required: true,
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'sub_category'
+        type: Schema.Types.ObjectId,
+        ref: 'Subcategory'
     },
     images: {
         required: true,
@@ -34,7 +62,7 @@ const Product = new Schema({
     },
     seller: {
         required: true,
-        type: mongoose.Schema.Types.ObjectId,
+        type: Schema.Types.ObjectId,
         ref: 'Seller'
     },
     rating: {
@@ -83,4 +111,4 @@ const Product = new Schema({
     }
 })
 
-export default mongoose.model('Product', Product);
+export default mongoose.model<IProduct>('Product', Product);

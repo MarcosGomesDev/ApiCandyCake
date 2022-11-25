@@ -1,7 +1,21 @@
 import mongoose from "mongoose";
 const {Schema} = mongoose;
 
-const User = new Schema({
+interface UserProps {
+    name: string,
+    lastname: string,
+    email: string,
+    password: string,
+    avatar: string,
+    avatarId: string,
+    seller: boolean,
+    admin: boolean,
+    favorites: Array<string>,
+    createdAt: string,
+    updatedAt: string,
+}
+
+const User = new Schema<UserProps>({
     name: {
         type: String,
         required: true
@@ -33,7 +47,7 @@ const User = new Schema({
         required: true
     },
     favorites: [{
-        type: mongoose.Schema.Types.ObjectId,
+        type: Schema.Types.ObjectId,
         ref: 'Product'
     }],
     createdAt: {
@@ -44,4 +58,4 @@ const User = new Schema({
     }
 })
 
-export default mongoose.model('User', User);
+export default mongoose.model<UserProps>('User', User);

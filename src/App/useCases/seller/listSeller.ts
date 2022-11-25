@@ -5,13 +5,22 @@ const listSeller = async (req: Request, res: Response) => {
     const { sellerAuth } = req
 
     try {
-        const products = await Product.find({ seller: sellerAuth })
-            .populate('seller')
-            .populate('category')
-            .populate('subcategory')
+        const products = await Product.find(
+            { seller: sellerAuth },
+            { publicImages: 0, createdAt: 0, updatedAt: 0 }
+        )
+            .populate({
+                path: 'category',
+                select: ['name']
+            })
+            .populate({
+                path: 'subcategory',
+                select: ['name']
+            })
 
         return res.status(200).json(products)
     } catch (error) {
+        console.log(error)
         return res.status(500).json(error)
     }
 }

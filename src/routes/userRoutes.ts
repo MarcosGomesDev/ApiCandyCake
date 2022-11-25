@@ -1,6 +1,6 @@
 import express from "express";
 
-import isUserAuthUser from "../app/middlewares/authUser";
+import isAuthUser from "../app/middlewares/authUser";
 import upload from "../app/middlewares/uploadImage";
 
 import createUser from "../app/useCases/user/createUser";
@@ -14,12 +14,17 @@ import uploadProfile from "../app/useCases/user/uploadProfile";
 import deleteUser from "../app/useCases/user/deleteUser";
 import listFavorites from "../app/useCases/user/listFavorites";
 import removeToFavorites from "../app/useCases/user/removeToFavorites";
+import createComment from "../app/useCases/user/createComment";
+import removeComment from "../app/useCases/user/removeComment";
+import searchProduct from "../app/useCases/user/searchProduct";
 
 const userRoutes = express.Router();
 
-userRoutes.get('/users', isUserAuthUser, listUsers)
+userRoutes.get('/users', isAuthUser, listUsers)
 
-userRoutes.get('/favorites', isUserAuthUser, listFavorites)
+userRoutes.get('/favorites', isAuthUser, listFavorites)
+
+userRoutes.get('/search', searchProduct)
 
 userRoutes.post('/sign-up/user', createUser)
 
@@ -29,14 +34,18 @@ userRoutes.post('/forgotpassword/user', forgotPasswordUser)
 
 userRoutes.post('/verifytoken', verifyTokenIsValid)
 
-userRoutes.patch('/update', isUserAuthUser, updateUser)
+userRoutes.post('/product/:id/rating/new', isAuthUser, createComment)
+
+userRoutes.patch('/update', isAuthUser, updateUser)
 
 userRoutes.patch('/resetpassword/:token', changePassword)
 
-userRoutes.patch('/user/upload-profile', isUserAuthUser, upload.single('avatar'), uploadProfile)
+userRoutes.patch('/user/upload-profile', isAuthUser, upload.single('avatar'), uploadProfile)
 
-userRoutes.delete('/favorites/:id', isUserAuthUser, removeToFavorites)
+userRoutes.delete('/product/:id/rating', isAuthUser, removeComment)
 
-userRoutes.delete('user/delete', isUserAuthUser, deleteUser)
+userRoutes.delete('/favorites/:id', isAuthUser, removeToFavorites)
+
+userRoutes.delete('user/delete', isAuthUser, deleteUser)
 
 export default userRoutes;

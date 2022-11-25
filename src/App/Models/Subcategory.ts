@@ -1,7 +1,13 @@
-import mongoose from'mongoose';
+import mongoose, { Types } from'mongoose';
 const {Schema} = mongoose;
 
-const Subcategory = new Schema({
+interface ISubcat {
+    name: string,
+    createdBy: Types.ObjectId,
+    createdAt: string
+}
+
+const Subcategory = new Schema<ISubcat>({
     name: {
         type: String,
         required: true
@@ -13,4 +19,4 @@ const Subcategory = new Schema({
     createdAt: String
 })
 
-export default mongoose.model('Subcategory', Subcategory)
+export default mongoose.model<ISubcat>('Subcategory', Subcategory)

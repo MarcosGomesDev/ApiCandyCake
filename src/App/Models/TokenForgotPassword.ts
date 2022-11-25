@@ -1,8 +1,13 @@
 import mongoose from "mongoose";
 const {Schema} = mongoose;
 
-const TokenForgotPassword = new Schema({
-    userId: {
+interface IToken {
+    id: string,
+    token: number
+}
+
+const TokenForgotPassword = new Schema<IToken>({
+    id: {
         type: String,
         required: true,
     },
@@ -12,4 +17,4 @@ const TokenForgotPassword = new Schema({
     }
 });
 
-export default mongoose.model('TokenForgotPassword', TokenForgotPassword)
+export default mongoose.model<IToken>('TokenForgotPassword', TokenForgotPassword)

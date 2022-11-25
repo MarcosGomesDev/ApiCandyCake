@@ -1,6 +1,11 @@
 import mongoose from "mongoose";
 
-const PointSchema = new mongoose.Schema({
+interface IPoint {
+    type: string,
+    coordinates: Array<number>
+}
+
+const PointSchema = new mongoose.Schema<IPoint>({
     type: {
         type: String,
         enum: ['Point'],

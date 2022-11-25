@@ -1,7 +1,13 @@
-import mongoose from'mongoose';
+import mongoose, { Types } from'mongoose';
 const {Schema} = mongoose;
 
-const Category = new Schema({
+interface ICategory {
+    name: string,
+    createdBy: Types.ObjectId,
+    createdAt: string
+}
+
+const Category = new Schema<ICategory>({
     name: {
         type: String,
         required: true
@@ -13,4 +19,4 @@ const Category = new Schema({
     createdAt: String
 })
 
-export default mongoose.model('Category', Category)
+export default mongoose.model<ICategory>('Category', Category)
