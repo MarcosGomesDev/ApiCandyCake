@@ -13,6 +13,7 @@ interface TokenPayload {
 
 const isUserAuth = async (req: Request, res: Response, next: NextFunction) => {
     if (req.headers && req.headers.authorization) {
+        console.log(req.headers.authorization)
         const token = req.headers.authorization.split(' ')[1]
 
         try {

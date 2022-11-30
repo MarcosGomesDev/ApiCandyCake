@@ -30,9 +30,11 @@ const loginSeller = async (req: Request, res: Response) => {
             name: seller.name,
             lastname: seller.lastname,
             email: seller.email,
+            credential: seller.credential,
             avatar: seller.avatar,
             seller: seller.seller,
             admin: seller.admin,
+            socialMedias: seller.socialMedias,
             token: token,
         }
 

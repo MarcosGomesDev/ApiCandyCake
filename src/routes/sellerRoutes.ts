@@ -19,6 +19,7 @@ import verifyTokenIsValid from "../app/useCases/seller/verifyTokenIsValid";
 import listSeller from "../app/useCases/seller/listSeller";
 import replyRating from "../app/useCases/seller/replyRating";
 import removeReplyRating from "../app/useCases/seller/removeReplyRating";
+import updateContactsSeller from "../app/useCases/seller/updateContactsSeller";
 
 sellerRoutes.get('/sellers', isUserAuth, listSellers)
 
@@ -34,13 +35,15 @@ sellerRoutes.post('/verifytoken', verifyTokenIsValid)
 
 sellerRoutes.post('/rating/:id', isSellerAuth, replyRating)
 
-sellerRoutes.patch('/update', isSellerAuth, updateSeller)
+sellerRoutes.patch('/seller/update', isSellerAuth, updateSeller)
 
-sellerRoutes.patch('/resetpassword/:token', changeSellerPassword)
+sellerRoutes.patch('/seller/contact', isSellerAuth, updateContactsSeller)
+
+sellerRoutes.patch('/resetpassword/seller/:token', changeSellerPassword)
 
 sellerRoutes.patch('/seller/upload-profile', isSellerAuth, upload.single('avatar'), uploadSellerProfile)
 
-sellerRoutes.delete('/rating/:id/reply', isSellerAuth, removeReplyRating)
+sellerRoutes.delete('/comment/:id/reply', isSellerAuth, removeReplyRating)
 
 sellerRoutes.delete('/seller/delete', isSellerAuth, deleteSeller)
 

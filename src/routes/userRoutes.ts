@@ -17,6 +17,7 @@ import removeToFavorites from "../app/useCases/user/removeToFavorites";
 import createComment from "../app/useCases/user/createComment";
 import removeComment from "../app/useCases/user/removeComment";
 import searchProduct from "../app/useCases/user/searchProduct";
+import addToFavorites from '../app/useCases/user/addToFavorites';
 
 const userRoutes = express.Router();
 
@@ -30,6 +31,8 @@ userRoutes.post('/sign-up/user', createUser)
 
 userRoutes.post('/sign-in/user', loginUser)
 
+userRoutes.post('/favorites/:id', isAuthUser, addToFavorites)
+
 userRoutes.post('/forgotpassword/user', forgotPasswordUser)
 
 userRoutes.post('/verifytoken', verifyTokenIsValid)
@@ -38,7 +41,7 @@ userRoutes.post('/product/:id/rating/new', isAuthUser, createComment)
 
 userRoutes.patch('/update', isAuthUser, updateUser)
 
-userRoutes.patch('/resetpassword/:token', changePassword)
+userRoutes.patch('/resetpassword/user/:token', changePassword)
 
 userRoutes.patch('/user/upload-profile', isAuthUser, upload.single('avatar'), uploadProfile)
 

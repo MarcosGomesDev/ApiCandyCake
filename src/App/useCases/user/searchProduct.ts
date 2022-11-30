@@ -30,7 +30,7 @@ const searchProduct = async (req: Request, res: Response) => {
             })
             .populate({
                 path: 'seller',
-                select: ['location', 'name']
+                select: ['location', 'name', 'storename']
             }).skip(skip).limit(limit).exec()
 
         const productsDistances: any[] = []

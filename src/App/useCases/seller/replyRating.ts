@@ -5,13 +5,13 @@ import User from "../../models/User"
 
 const replyRating = async (req: Request , res: Response) => {
     const { sellerAuth } = req
-    const { id } = req.params
+    const { commentId } = req.params
     const { replyComment } = req.body
 
     try {
         const user = await User.findById(sellerAuth)
 
-        await Product.updateMany({ "rating._id": id },
+        await Product.updateMany({ "rating._id": commentId },
             {
                 $set: {
                     "rating.$[element].replyRating": {
@@ -21,7 +21,7 @@ const replyRating = async (req: Request , res: Response) => {
                     }
                 }
             },
-            { arrayFilters: [{ "element._id": id }] }
+            { arrayFilters: [{ "element._id": commentId }] }
         )
 
         return res.status(201).json('Resposta enviada com sucesso!')

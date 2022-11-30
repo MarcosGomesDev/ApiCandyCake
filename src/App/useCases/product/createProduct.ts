@@ -25,10 +25,6 @@ const createProduct = async (req: Request, res: Response) => {
         return res.status(401).json('Por favor insira a descrição do produto')
     }
 
-    if (req.files.length > 3) {
-        return res.status(401).json('Quantidade de imagens não suportada')
-    }
-
     const categorySend = await Category.findOne({ name: category })
 
     if (!categorySend) {
@@ -42,7 +38,6 @@ const createProduct = async (req: Request, res: Response) => {
     }
 
     try {
-
         const images = []
         const publicImages = []
 
@@ -62,7 +57,7 @@ const createProduct = async (req: Request, res: Response) => {
 
         const product = await Product.create({
             name,
-            price,
+            price: price.replace(',', '.'),
             description,
             seller: sellerAuth,
             images,
@@ -72,11 +67,14 @@ const createProduct = async (req: Request, res: Response) => {
             createdAt: date
         })
 
+
         const seller = await Seller.findOne({ _id: sellerAuth })
 
         seller!.products.push(product._id)
+
         await seller!.save()
         await product.save()
+
 
         return res.status(201).json('Produto criado com sucesso!')
 

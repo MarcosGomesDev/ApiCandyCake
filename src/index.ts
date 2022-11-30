@@ -1,5 +1,6 @@
 import express from 'express';
 import cors from 'cors';
+import path from 'node:path'
 import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
 
@@ -18,6 +19,7 @@ const app = express();
 app.use(cors())
 app.use(express.json())
 app.use(cookieParser())
+// app.use('/uploads', express.static(path.resolve(__dirname, '..', 'uploads')));
 app.use(userRoutes)
 app.use(sellerRoutes)
 app.use(categoryRoutes)

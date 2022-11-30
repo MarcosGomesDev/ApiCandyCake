@@ -19,15 +19,17 @@ const updateContactsSeller = async (req: Request, res: Response) => {
         await seller.updateOne({
             $set: {
                 socialMedias: {
-                    instagram,
-                    whatsapp,
-                    facebook,
+                    instagram: instagram,
+                    whatsapp: whatsapp,
+                    facebook: facebook
                 },
                 updatedAt: date
             }
         });
 
-        return res.status(201).json('Dados atualizados com sucesso');
+        const data = await Seller.findById(sellerAuth)
+
+        return res.status(201).json({message: 'Dados atualizados com sucesso', data: data!.socialMedias});
     } catch (error) {
         return res.status(500).json('Erro ao atualizar dados do vendedor')
     };

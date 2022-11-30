@@ -10,7 +10,7 @@ const listFavorites = async (req: Request, res: Response) => {
             populate: 'seller',
         });
 
-        return res.status(200).json(userExist!.favorites)
+        return res.status(200).json(userExist?.favorites)
     } catch (error) {
         return res.status(500).json('Erro ao retornar os favoritos, tente novamente mais tarde!')
     }

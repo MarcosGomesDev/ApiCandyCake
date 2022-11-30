@@ -72,7 +72,7 @@ const updateProduct = async (req: Request, res: Response) => {
         await product.updateOne({
             $set: {
                 name: name !== product.name ? name : product.name,
-                price: price !== product.price ? price : product.price,
+                price: price !== product.price ? price.replace(',', '.') : product.price,
                 category: categorySend._id !== product.category._id ? categorySend : product.category,
                 subcategory: subCategorySend._id !== product.subcategory._id ? subCategorySend : product.subcategory,
                 images: req.files.length > 0 ? newImages : product.images,

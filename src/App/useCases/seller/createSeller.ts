@@ -13,6 +13,7 @@ const createSeller = async (req: Request, res: Response) => {
         lastname,
         storename,
         email,
+        credential,
         password,
         cep,
         logradouro,
@@ -33,6 +34,9 @@ const createSeller = async (req: Request, res: Response) => {
     if(!storename) return res.status(401).json('O nome da loja é obrigatório!');
 
     if(!password) return res.status(401).json('A senha é obrigatória!');
+
+    if(!credential) return res.status(401).json('O CPF é obrigatório!');
+
 
     //VERIFICA SE O CEP DO ENDEREÇO FOI INSERIDO
     if(!cep) return res.status(401).json('O cep é obrigatório!');
@@ -73,6 +77,7 @@ const createSeller = async (req: Request, res: Response) => {
             lastname,
             storename,
             email,
+            credential,
             seller: true,
             admin: false,
             password: passwordHash,

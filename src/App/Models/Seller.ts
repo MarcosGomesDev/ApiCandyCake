@@ -2,11 +2,18 @@ import mongoose, { Types } from 'mongoose'
 const { Schema } = mongoose
 import PointSchema from '../../utils/PointSchema';
 
+interface ISocial {
+    instagram: string,
+    facebook: string,
+    whatsapp: string
+}
+
 interface ISeller {
     name: string,
     lastname: string,
     storename: string,
     email: string,
+    credential: string,
     password: string,
     avatar: string,
     avatarId: string,
@@ -15,7 +22,7 @@ interface ISeller {
     products: Array<Types.ObjectId>,
     location: any,
     address: Array<string>,
-    socialMedias: Array<string>,
+    socialMedias: Array<ISocial>,
     createdAt: string,
     updatedAt: string,
 }
@@ -30,6 +37,10 @@ const Seller = new Schema<ISeller>({
         type: String
     },
     storename: {
+        required: true,
+        type: String
+    },
+    credential: {
         required: true,
         type: String
     },
@@ -76,19 +87,17 @@ const Seller = new Schema<ISeller>({
             state: { type: String }
         }]
     },
-    socialMedias: {
-        type: [{
-            instagram: {
-                type: String
-            },
-            facebook: {
-                type: String
-            },
-            whatsapp: {
-                type: String
-            }
-        }]
-    },
+    socialMedias:[{
+        instagram: {
+            type: String
+        },
+        facebook: {
+            type: String
+        },
+        whatsapp: {
+            type: String
+        }
+    }],
     createdAt: {
         type: String
     },

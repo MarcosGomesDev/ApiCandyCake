@@ -4,10 +4,10 @@ import Product from "../../models/Product"
 
 const removeReplyRating = async (req: Request, res: Response) => {
     const { sellerAuth } = req
-    const { id } = req.params
+    const { replyId } = req.params
 
     try {
-        await Product.updateMany({ "rating._id": id },
+        await Product.updateMany({ "rating._id": replyId },
             {
                 $pull: {
                     "rating.$[element].replyRating": {
@@ -15,7 +15,7 @@ const removeReplyRating = async (req: Request, res: Response) => {
                     }
                 }
             },
-            { arrayFilters: [{ "element._id": id }] }
+            { arrayFilters: [{ "element._id": replyId }] }
         )
 
         return res.status(201).json("Resposta excluida com sucesso!")

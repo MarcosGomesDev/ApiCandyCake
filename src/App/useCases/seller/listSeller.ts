@@ -17,6 +17,11 @@ const listSeller = async (req: Request, res: Response) => {
                 path: 'subcategory',
                 select: ['name']
             })
+            .populate({
+                path: 'seller',
+                select: ['storename']
+            })
+
 
         return res.status(200).json(products)
     } catch (error) {

@@ -26,7 +26,16 @@ const updateSeller = async (req: Request, res: Response) => {
             }
         });
 
-        return res.status(201).json('Dados atualizados com sucesso');
+        const dados = await Seller.findById(sellerAuth)
+
+        const data = {
+            name: dados!.name,
+            lastname: dados!.lastname,
+            storename: dados!.storename,
+            email: dados!.email
+        }
+
+        return res.status(201).json({message: 'Dados atualizados com sucesso', data: data});
     } catch (error) {
         return res.status(500).json('Erro ao atualizar dados do vendedor')
     };

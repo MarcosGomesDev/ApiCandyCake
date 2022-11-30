@@ -2,11 +2,11 @@ import { Request, Response } from "express"
 import Product from "../../models/Product"
 
 
-const listProduct = async (req: Request , res: Response) => {
-    const { id } = req.params
+const listProductsBySeller = async (req: Request , res: Response) => {
+    const { sellerId } = req.params
 
     try {
-        const product = await Product.findOne({ _id: id }, {createdAt: 0, publicImages: 0})
+        const product = await Product.find({ seller: sellerId }, {createdAt: 0, publicImages: 0})
             .populate({
                 path: 'category',
                 select: ['name']
@@ -27,4 +27,4 @@ const listProduct = async (req: Request , res: Response) => {
     }
 }
 
-export default listProduct;
+export default listProductsBySeller;
